@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <v-card outlined>
-      <v-card-title>Mã đơn hàng {{ datas.id }}</v-card-title>
+      <v-card-title>Mã đơn hàng [{{ datas.id }}]</v-card-title>
       <v-card-text class="pb-0">
         <v-list two-line>
           <v-list-item v-for="item in datas.details" :key="item.perfume">

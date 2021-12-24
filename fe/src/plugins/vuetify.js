@@ -13,14 +13,15 @@ export default new Vuetify({
         primary: "#212121",
         secondary: "#757575",
         accent: "#eeeeee",
-        background: "#272727"
+        background: "#272727",
       },
       light: {
-        background: "#ebebeb"
-      }
-    }
+        background: "#ebebeb",
+        primary: "#009688",
+      },
+    },
   },
   icons: {
-    iconfont: "mdi" // default - only for display purposes
-  }
+    iconfont: "mdi", // default - only for display purposes
+  },
 });

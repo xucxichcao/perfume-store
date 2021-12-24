@@ -69,19 +69,24 @@
             offset-y
           >
             <template v-slot:activator="{ on, attrs }">
-              <v-btn
+              <!-- <v-btn
+                icon
                 tile
                 text
-                class="noTextTrans mr-5"
+                class="noTextTrans"
                 v-bind="attrs"
                 v-on="on"
-              >
-                <v-icon small>fas fa-shopping-cart </v-icon>
-              </v-btn>
+              > -->
+              <v-badge color="teal" :content="cart.length || 0">
+                <v-icon v-bind="attrs" v-on="on" small
+                  >fas fa-shopping-cart</v-icon
+                >
+              </v-badge>
+              <!-- </v-btn> -->
             </template>
             <v-card width="300px" elevation="0">
               <v-card-title>Giỏ hàng</v-card-title>
-              <v-card-text>
+              <v-card-text v-if="cart.length > 0">
                 <div class="cart-flyout">
                   <div class="item" v-for="item in cart" :key="item.id">
                     <div class="col1">
@@ -114,7 +119,10 @@
                   </div>
                 </div>
               </v-card-text>
-              <v-card-actions class="justify-end">
+              <v-card-text v-else>
+                Bạn chưa có gì trong giỏ hàng
+              </v-card-text>
+              <v-card-actions v-if="cart.length > 0" class="justify-end">
                 <v-btn
                   text
                   depressed
@@ -128,7 +136,7 @@
           <v-menu v-if="isAuthenticated" offset-y>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
-                class="noTextTrans"
+                class="noTextTrans ml-8"
                 color="primary"
                 dark
                 v-bind="attrs"
@@ -140,8 +148,17 @@
             </template>
             <v-list>
               <v-list-item>
+                <v-btn
+                  tile
+                  class="noTextTrans"
+                  plain
+                  :to="{ name: 'Order default' }"
+                  ><v-icon left>fas fa-list-ul</v-icon>Đơn hàng đã mua</v-btn
+                >
+              </v-list-item>
+              <v-list-item>
                 <v-btn tile class="noTextTrans" plain @click="onSignout"
-                  >Đăng xuất</v-btn
+                  ><v-icon left>fas fa-sign-out-alt</v-icon>Đăng xuất</v-btn
                 >
               </v-list-item>
             </v-list>
