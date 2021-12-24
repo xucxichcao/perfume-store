@@ -1,9 +1,32 @@
 <template>
   <div class="order">
+    <v-card outlined>
+      <v-card-title>Đơn hàng {{ datas.id }}</v-card-title>
+      <v-card-text>
+        <v-list>
+          <v-list-item v-for="item in datas.details" :key="item.perfume">
+            <v-list-item-avatar>
+              <v-img
+                :src="item.perfume_data.image"
+                max-height="50px"
+                max-width="50px"
+                contain
+                :alt="item.perfume_data.name"
+              />
+            </v-list-item-avatar>
+          </v-list-item>
+        </v-list>
+      </v-card-text>
+    </v-card>
     <div v-for="item in datas.details" :key="item.perfume" class="list-item">
       <div class="img">
         <div class="left">
-          <img :src="item.perfume_data.image" alt="" />
+          <v-img
+            :src="item.perfume_data.image"
+            max-width="70px"
+            max-heght="70px"
+            :alt="item.perfume_data.name"
+          />
           <div class="item-detail">
             <h4 style="color: white">{{ item.perfume_data.name }}</h4>
             <p style="color: white">x{{ item.amount }}</p>
@@ -29,13 +52,6 @@ export default {
     return {
       loading: false,
       id: this.$route.params.orderId,
-      data: {
-        id: "1",
-        ten: "Frozen Yogurt",
-        donGia: 100000,
-        soLuong: 1,
-        tongTien: 100000,
-      },
       datas: [],
     };
   },

@@ -159,15 +159,18 @@ class cartDetailSerializer(serializers.ModelSerializer):
 
 
 class orderDetailSerializer(serializers.ModelSerializer):
+    perfume_data = perfumeSerializer(source='perfume', read_only=True)
+
     def create(self, validated_data):
         perfume = validated_data.get('perfume', None)
-        validated_data.update({"price": perfume.price})
+        amount = validated_data.get('amount', None)
+        validated_data.update({"price": perfume.price * amount})
         return orderDetail.objects.create(**validated_data)
 
     class Meta:
         model = orderDetail
-        fields = ('order', 'perfume', 'amount', 'price')
-        read_only_fields = ('price', )
+        fields = ('order', 'perfume', 'amount', 'price', 'perfume_data')
+        read_only_fields = ('price', 'perfume_data')
 
 
 class orderSerializer(serializers.ModelSerializer):
