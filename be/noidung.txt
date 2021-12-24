@@ -1,0 +1,7 @@
+Footer hoàn thiện hơn - thêm location - thông tin sđt - liên lạc
+
+Vẽ các template:
+	Chi tiết sản phẩm
+	Nhóm mùi
+
+Đăng ký đăng nhập theo Gmail/Facebook
