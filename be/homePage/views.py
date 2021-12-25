@@ -61,35 +61,50 @@ class perfumeViewSet(viewsets.ModelViewSet):
     }
 
     def get_queryset(self):
-        if self.request.user.is_authenticated:
+        withOrder = self.request.query_params.get('withOrder')
+        if withOrder:
             queryset = perfume.objects.annotate(
-                isRated=Exists(
-                    rate.objects.filter(user=self.request.user,
-                                        perfume=OuterRef('pk'))),
-                point=Coalesce(Avg('ratings__perfumepoint'),
-                               0,
-                               output_field=DecimalField()),
-                longevity=Coalesce(Avg('ratings__longevity'),
-                                   0,
-                                   output_field=DecimalField()),
-                sillage=Coalesce(Avg('ratings__sillage'),
-                                 0,
-                                 output_field=DecimalField()),
-            )
+                    point=Coalesce(Avg('ratings__perfumepoint'),
+                                0,
+                                output_field=DecimalField()),
+                    longevity=Coalesce(Avg('ratings__longevity'),
+                                    0,
+                                    output_field=DecimalField()),
+                    sillage=Coalesce(Avg('ratings__sillage'),
+                                    0,
+                                    output_field=DecimalField()),
+                ).order_by('-point')[:4]
             return queryset
         else:
-            queryset = perfume.objects.annotate(
-                point=Coalesce(Avg('ratings__perfumepoint'),
-                               0,
-                               output_field=DecimalField()),
-                longevity=Coalesce(Avg('ratings__longevity'),
-                                   0,
-                                   output_field=DecimalField()),
-                sillage=Coalesce(Avg('ratings__sillage'),
-                                 0,
-                                 output_field=DecimalField()),
-            )
-            return queryset
+            if self.request.user.is_authenticated:
+                queryset = perfume.objects.annotate(
+                    isRated=Exists(
+                        rate.objects.filter(user=self.request.user,
+                                            perfume=OuterRef('pk'))),
+                    point=Coalesce(Avg('ratings__perfumepoint'),
+                                0,
+                                output_field=DecimalField()),
+                    longevity=Coalesce(Avg('ratings__longevity'),
+                                    0,
+                                    output_field=DecimalField()),
+                    sillage=Coalesce(Avg('ratings__sillage'),
+                                    0,
+                                    output_field=DecimalField()),
+                )
+                return queryset
+            else:
+                queryset = perfume.objects.annotate(
+                    point=Coalesce(Avg('ratings__perfumepoint'),
+                                0,
+                                output_field=DecimalField()),
+                    longevity=Coalesce(Avg('ratings__longevity'),
+                                    0,
+                                    output_field=DecimalField()),
+                    sillage=Coalesce(Avg('ratings__sillage'),
+                                    0,
+                                    output_field=DecimalField()),
+                )
+                return queryset
 
 
 class rateViewSet(viewsets.ModelViewSet):

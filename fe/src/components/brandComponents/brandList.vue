@@ -31,7 +31,7 @@
             <v-lazy
               v-model="isSelected[brand.filter]"
               :options="{
-                threshold: 0.5,
+                threshold: 0.5
               }"
               transition="scale-transition"
               min-height="200"
@@ -43,7 +43,7 @@
                   outlined
                   :to="{
                     name: 'brandDetails',
-                    params: { brandSlug: brand.id },
+                    params: { brandSlug: brand.id }
                   }"
                   class="mx-auto"
                   :elevation="hover ? 5 : 0"
@@ -104,7 +104,7 @@ export default {
         "W",
         "X",
         "Y",
-        "Z",
+        "Z"
       ],
       isSelected: [
         1,
@@ -133,9 +133,9 @@ export default {
         1,
         1,
         1,
-        1,
+        1
       ],
-      panelSelected: 0,
+      panelSelected: 0
     };
   },
   methods: {
@@ -149,11 +149,11 @@ export default {
     },
     retrieveBrands() {
       NHDataService.getAllBrands()
-        .then((response) => {
+        .then(response => {
           const waitting = response.data.map(this.getDisplayBrand);
           this.$store.dispatch("brand/getBrand", waitting);
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -164,9 +164,9 @@ export default {
         place: brand.place,
         route: brand.route,
         image: brand.image,
-        filter: brand.id.charCodeAt(0) - 96,
+        filter: brand.id.charCodeAt(0) - 96
       };
-    },
+    }
   },
   mounted() {
     this.retrieveBrands();
@@ -175,9 +175,9 @@ export default {
     brands: {
       get() {
         return this.$store.getters["brand/getBrandList"];
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

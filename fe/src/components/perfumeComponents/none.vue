@@ -125,7 +125,7 @@
                       link
                       :to="{
                         name: 'perfumeDetail',
-                        params: { perfumeSlug: perfume.sname },
+                        params: { perfumeSlug: perfume.sname }
                       }"
                       class="mx-auto"
                       outlined
@@ -169,7 +169,7 @@ export default {
       brandList: [],
       scentNotes: [],
       selectedBrand: [],
-      selectedScent: [],
+      selectedScent: []
     };
   },
   methods: {
@@ -184,39 +184,39 @@ export default {
     retrievePerfumes() {
       this.loading = true;
       NHDataService.getPerfume()
-        .then((response) => {
+        .then(response => {
           const waitting = response.data.map(this.getDisplayPerfume);
           this.$store.dispatch("perfume/getPerfume", waitting);
           this.loading = false;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     retrieveBrands() {
       NHDataService.getAllBrands()
-        .then((response) => {
+        .then(response => {
           const waiting = response.data.map(this.getDisplayBrand);
           this.brandList = waiting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     retrieveScentNote() {
       NHDataService.getAllScents()
-        .then((response) => {
+        .then(response => {
           const waitting = response.data;
           this.scentNotes = waitting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     getDisplayBrand(brand) {
       return {
         id: brand.id,
-        name: brand.name,
+        name: brand.name
       };
     },
     getDisplayPerfume(perfume) {
@@ -225,7 +225,7 @@ export default {
         sname: perfume.sname,
         description: perfume.description,
         brand: perfume.brand,
-        image: perfume.image,
+        image: perfume.image
       };
     },
     changeFilter() {
@@ -251,23 +251,23 @@ export default {
       if (brandString.length > 0 && scentString.length == 0) {
         http
           .get(`/perfumes/?brand__in=${brandString}`)
-          .then((response) => {
+          .then(response => {
             const waitting = response.data.map(this.getDisplayPerfume);
             this.$store.dispatch("perfume/getPerfume", waitting);
             this.loading = false;
           })
-          .catch((e) => {
+          .catch(e => {
             console.log(e);
           });
       } else if (brandString.length == 0 && scentString.length > 0) {
         http
           .get(`/perfumes/?scentnote__in=${scentString}`)
-          .then((response) => {
+          .then(response => {
             const waitting = response.data.map(this.getDisplayPerfume);
             this.$store.dispatch("perfume/getPerfume", waitting);
             this.loading = false;
           })
-          .catch((e) => {
+          .catch(e => {
             console.log(e);
           });
       } else if (brandString.length > 0 && scentString.length > 0) {
@@ -275,22 +275,22 @@ export default {
           .get(
             `/perfumes/?scentnote__in=${scentString}&brand__in=${brandString}`
           )
-          .then((response) => {
+          .then(response => {
             const waitting = response.data.map(this.getDisplayPerfume);
             this.$store.dispatch("perfume/getPerfume", waitting);
             this.loading = false;
           })
-          .catch((e) => {
+          .catch(e => {
             console.log(e);
           });
       } else {
         NHDataService.getPerfume()
-          .then((response) => {
+          .then(response => {
             const waitting = response.data.map(this.getDisplayPerfume);
             this.$store.dispatch("perfume/getPerfume", waitting);
             this.loading = false;
           })
-          .catch((e) => {
+          .catch(e => {
             console.log(e);
           });
       }
@@ -304,7 +304,7 @@ export default {
       this.$nextTick(() => {
         this.changeFilter();
       });
-    },
+    }
   },
   mounted() {
     this.retrievePerfumes();
@@ -315,9 +315,9 @@ export default {
     perfumes: {
       get() {
         return this.$store.getters["perfume/getPerfumeList"];
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

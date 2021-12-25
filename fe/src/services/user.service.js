@@ -5,7 +5,7 @@ import { setAxiosAuthToken } from "../helpers/auth-header";
 export const userService = {
   login,
   logout,
-  signup,
+  signup
   // getAll,
   // getById,
   // update,
@@ -15,18 +15,18 @@ export const userService = {
 function login(username, password) {
   const userData = {
     username,
-    password,
+    password
   };
   return http
     .post("/token/login/", userData)
-    .then((response) => {
+    .then(response => {
       const authToken = response.data["auth_token"];
       store.dispatch("user/setIsAuthenticated", true);
       setToken(authToken);
       getCurrentUser();
       store.dispatch("navbar/loginOrSignup");
     })
-    .catch((error) => {
+    .catch(error => {
       unsetCurrentUser();
       if (error.response) {
         store.dispatch(
@@ -43,14 +43,14 @@ function login(username, password) {
 function getCurrentUser() {
   return http
     .get("/users/me/")
-    .then((response) => {
+    .then(response => {
       const user = {
         username: response.data.username,
-        email: response.data.email,
+        email: response.data.email
       };
       setCurrentUser(user);
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error.message);
     });
 }
@@ -81,7 +81,7 @@ function signup(username, password) {
   store.dispatch("navbar/setIsSubmitting");
   const userData = {
     username,
-    password,
+    password
   };
   http
     .post("/users/", userData)
@@ -96,7 +96,7 @@ function signup(username, password) {
         store.dispatch("navbar/setFormLoginSignup", 1);
       }, 1500);
     })
-    .catch((error) => {
+    .catch(error => {
       store.dispatch("navbar/setIsSubmitting");
       if (error.response) {
         const errorObject = error.response.data;

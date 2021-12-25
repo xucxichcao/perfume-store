@@ -18,7 +18,7 @@
                     <v-btn
                       :to="{
                         name: 'noteDetails',
-                        params: { noteSlug: scentNote.id },
+                        params: { noteSlug: scentNote.id }
                       }"
                       plain
                       text
@@ -41,23 +41,23 @@ import NHDataService from "../../services/NHDataServices";
 export default {
   data() {
     return {
-      scentNotes: [],
+      scentNotes: []
     };
   },
   methods: {
     async retrieveScentNote() {
       await NHDataService.getAllScents()
-        .then((response) => {
+        .then(response => {
           const waitting = response.data;
           this.scentNotes = waitting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
-    },
+    }
   },
   async created() {
     await this.retrieveScentNote();
-  },
+  }
 };
 </script>

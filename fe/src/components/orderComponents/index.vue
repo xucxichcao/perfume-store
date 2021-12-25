@@ -18,9 +18,7 @@
             tag="a"
             :to="{ name: 'Order detail', params: { orderId: item.id } }"
           >
-            <v-btn style="background-color: black; color: white"
-              >Xem chi tiết đơn hàng</v-btn
-            >
+            <v-btn color="primary">Xem chi tiết đơn hàng</v-btn>
           </router-link>
         </div>
       </div>
@@ -40,7 +38,7 @@ export default {
   methods: {
     getOrder() {
       NHDataServices.getOrderList().then((res) => {
-        this.datas = res.data;
+        this.datas = res.data.reverse();
         this.loading = false;
       });
     },
@@ -69,7 +67,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .order {
   max-width: 1200px;
   margin: 2rem auto;

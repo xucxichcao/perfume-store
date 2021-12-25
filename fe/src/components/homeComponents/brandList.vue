@@ -46,16 +46,16 @@ import NHDataService from "../../services/NHDataServices";
 
 export default {
   data: () => ({
-    brands: [],
+    brands: []
   }),
   methods: {
     retrieveBrands() {
       NHDataService.getAllBrands()
-        .then((response) => {
+        .then(response => {
           const waitting = response.data.map(this.getDisplayBrand);
           this.brands = this.shuffleMyArray(waitting);
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -64,7 +64,7 @@ export default {
         id: brand.id,
         name: brand.name,
         place: brand.place,
-        image: brand.image,
+        image: brand.image
       };
     },
     shuffleMyArray(a) {
@@ -76,11 +76,11 @@ export default {
         a[j] = x;
       }
       return a;
-    },
+    }
   },
   mounted() {
     this.retrieveBrands();
-  },
+  }
 };
 </script>
 

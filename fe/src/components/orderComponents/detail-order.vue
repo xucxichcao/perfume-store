@@ -44,33 +44,33 @@ export default {
     return {
       loading: false,
       id: this.$route.params.orderId,
-      datas: [],
+      datas: []
     };
   },
   methods: {
     getOrderDetail() {
-      NHDataServices.getOrderByID(this.id).then((res) => {
+      NHDataServices.getOrderByID(this.id).then(res => {
         this.datas = res.data;
         this.loading = false;
       });
-    },
+    }
   },
   filters: {
-    toCurrency: (value) => {
+    toCurrency: value => {
       if (typeof value !== "number") {
         return value;
       }
       var formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
-        currency: "VND",
+        currency: "VND"
       });
       return formatter.format(value);
-    },
+    }
   },
   async mounted() {
     this.loading = true;
     await this.getOrderDetail();
-  },
+  }
 };
 </script>
 

@@ -29,7 +29,7 @@
                   link
                   :to="{
                     name: 'perfumeDetail',
-                    params: { perfumeSlug: perfume.sname },
+                    params: { perfumeSlug: perfume.sname }
                   }"
                   class="mx-auto"
                   :elevation="hover ? 5 : 0"
@@ -63,41 +63,41 @@ export default {
   props: {
     brandSlug: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       brand: {},
-      perfumes: {},
+      perfumes: {}
     };
   },
   methods: {
     retrieveBrands() {
       NHDataService.getBrand(this.brandSlug)
-        .then((response) => {
+        .then(response => {
           const waiting = response.data;
           this.brand = waiting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     retrievePerfumes() {
       NHDataService.getPerfumeByBrand(this.brandSlug)
-        .then((response) => {
+        .then(response => {
           const waiting = response.data;
           this.perfumes = waiting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
-    },
+    }
   },
   async beforeMount() {
     await this.retrieveBrands();
     await this.retrievePerfumes();
   },
-  computed: {},
+  computed: {}
 };
 </script>

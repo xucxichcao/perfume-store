@@ -79,21 +79,21 @@
 import NHDataServices from "../../services/NHDataServices";
 export default {
   data: () => ({
-    cart: [],
+    cart: []
   }),
   methods: {
     retrieveCart() {
-      NHDataServices.getCart().then((response) => {
+      NHDataServices.getCart().then(response => {
         this.cart = response.data;
       });
     },
     async buy() {
       if (this.cart.length == 0) return;
       var perfumeData = [];
-      this.cart.forEach((element) => {
+      this.cart.forEach(element => {
         perfumeData.push({ id: element.perfume, amount: element.amount });
       });
-      await NHDataServices.buy().then(async (res) => {
+      await NHDataServices.buy().then(async res => {
         var orderID = res.data.id;
         await NHDataServices.addOrderDetail(orderID, perfumeData);
       });
@@ -110,29 +110,29 @@ export default {
     async addSubAmount(id, amt, num) {
       if (amt == 1 && num == -1) return;
       var newAmount = amt + num;
-      await NHDataServices.changeAmountCartByID(id, newAmount).then((res) => {
+      await NHDataServices.changeAmountCartByID(id, newAmount).then(res => {
         console.log(res);
         this.retrieveCart();
       });
       this.$root.$refs.navbar.retrieveCart();
-    },
+    }
   },
   mounted() {
     this.retrieveCart();
     console.log(this.cart);
   },
   filters: {
-    toCurrency: (value) => {
+    toCurrency: value => {
       if (typeof value !== "number") {
         return value;
       }
       var formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
-        currency: "VND",
+        currency: "VND"
       });
       return formatter.format(value);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -185,20 +185,20 @@ export default {
       { text: "Trang chủ", route: "Home" },
       { text: "Nước hoa", route: "nonePerfume" },
       { text: "Nhãn hiệu", route: "brandList" },
-      { text: "Nhóm mùi hương", route: "scentList" },
+      { text: "Nhóm mùi hương", route: "scentList" }
       // { text: "Về chúng tôi", route: "About", isRipple: false },
     ],
-    cart: [],
+    cart: []
   }),
   watch: {
     group() {
       this.drawer = false;
-    },
+    }
   },
   computed: {
     isAuthenticated() {
       return this.$store.getters["user/getAuthen"];
-    },
+    }
   },
   methods: {
     onSignout() {
@@ -209,34 +209,34 @@ export default {
       this.$store.dispatch("navbar/loginOrSignup");
     },
     retrieveCart() {
-      NHDataServices.getCart().then((response) => {
+      NHDataServices.getCart().then(response => {
         this.cart = response.data;
       });
     },
     async deleteCart(id) {
       await NHDataServices.deleteCart(id);
       this.retrieveCart();
-    },
+    }
   },
   mounted() {
     this.retrieveCart();
     console.log(this.$refs);
   },
   filters: {
-    toCurrency: (value) => {
+    toCurrency: value => {
       if (typeof value !== "number") {
         return value;
       }
       var formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
-        currency: "VND",
+        currency: "VND"
       });
       return formatter.format(value);
-    },
+    }
   },
   created() {
     this.$root.$refs.navbar = this;
-  },
+  }
 };
 </script>
 

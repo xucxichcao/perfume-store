@@ -60,16 +60,16 @@ export default {
       //   description: "Mùi này rất thơm",
       //   route: "/scents/woody"
       // }
-    ],
+    ]
   }),
   methods: {
     retrieveScents() {
       NHDataService.getAllScents()
-        .then((response) => {
+        .then(response => {
           const waitting = response.data.map(this.getDisplayScents);
           this.groups = this.shuffleMyArray(waitting);
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -79,7 +79,7 @@ export default {
         name: scent.name,
         description: scent.description,
         route: scent.route,
-        image: scent.image,
+        image: scent.image
       };
     },
     shuffleMyArray(a) {
@@ -91,11 +91,11 @@ export default {
         a[j] = x;
       }
       return a;
-    },
+    }
   },
   mounted() {
     this.retrieveScents();
-  },
+  }
 };
 </script>
 

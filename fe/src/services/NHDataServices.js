@@ -29,6 +29,10 @@ class NHDataService {
     return http.get("/perfumes/");
   }
 
+  async getPerfumeWithOrder() {
+    return http.get("/perfumes/?withOrder=True");
+  }
+
   async getPerfumeByScent(id) {
     return http.get(`/perfumes/?scentnote=${id}`);
   }

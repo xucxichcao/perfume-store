@@ -45,12 +45,12 @@ export default {
         (typeof value === "object" && Object.keys(value).length === 0) ||
         (typeof value === "string" && value.trim().length === 0)
       );
-    },
+    }
   },
   computed: {
     theme() {
       return this.$vuetify.theme.dark ? "dark" : "light";
-    },
+    }
   },
   created: function() {
     if (!this.isEmpty(localStorage.getItem("token"))) {
@@ -63,6 +63,6 @@ export default {
         "user/setUser",
         JSON.parse(localStorage.getItem("user"))
       );
-  },
+  }
 };
 </script>

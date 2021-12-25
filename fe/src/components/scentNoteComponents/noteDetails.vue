@@ -23,7 +23,7 @@
                 link
                 :to="{
                   name: 'perfumeDetail',
-                  params: { perfumeSlug: perfume.sname },
+                  params: { perfumeSlug: perfume.sname }
                 }"
                 class="mx-auto"
                 :elevation="hover ? 12 : 0"
@@ -54,41 +54,41 @@ export default {
   props: {
     noteSlug: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
       perfumes: {},
-      scent: {},
+      scent: {}
     };
   },
   methods: {
     async retrieveScent() {
       await NHDataServices.getPerfumeByScent(this.noteSlug)
-        .then((response) => {
+        .then(response => {
           const waiting = response.data;
           this.perfumes = waiting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
     async retrieveScentByID() {
       await NHDataServices.getScentByID(this.noteSlug)
-        .then((response) => {
+        .then(response => {
           const waiting = response.data;
           this.scent = waiting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
-    },
+    }
   },
   async created() {
     await this.retrieveScent();
     await this.retrieveScentByID();
-  },
+  }
 };
 </script>
 

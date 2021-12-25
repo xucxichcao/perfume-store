@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
+from django.db.models import constraints
 
 # Create your models here.
 
@@ -11,10 +12,9 @@ class brandList(models.Model):
     name = models.CharField(max_length=200)
     place = models.CharField(max_length=200)
     route = models.CharField(max_length=200)
-    image = models.FileField(
-        upload_to='brand-image',
-        blank=True,
-        validators=[FileExtensionValidator(['pdf', 'doc', 'svg'])])
+    image = models.FileField(upload_to='brand-image',
+                             blank=True,
+                             validators=[FileExtensionValidator(['svg'])])
 
     def __str__(self):
         return self.name
@@ -84,10 +84,6 @@ class rate(models.Model):
                                MinValueValidator(1)])
     content = models.TextField(default="")
 
-    # @property
-    # def vote(self):
-    #     return self.rate_vote.aggregate(sum_vote =  Coalesce(Sum('point'), 0))['sum_vote']
-
     def __str__(self):
         return (self.user.get_username() + ': ' + self.perfume.name)
 
@@ -123,6 +119,12 @@ class cartDetail(models.Model):
                                 related_name='cart')
     amount = models.PositiveSmallIntegerField(default=1)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user', 'perfume'],
+                                    name='no_dupe_item')
+        ]
+
 
 class order(models.Model):
     user = models.ForeignKey(User,
@@ -130,7 +132,6 @@ class order(models.Model):
                              related_name='order')
     createdDate = models.DateTimeField(auto_now_add=True, blank=True)
     status = models.CharField(default='Finished', max_length=200)
-    # totalPrice = models.IntegerField()
 
 
 class orderDetail(models.Model):

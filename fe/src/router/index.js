@@ -8,7 +8,7 @@ const routes = [
     name: "Home",
     props: true,
     meta: { requiresAuth: false },
-    component: () => import("../views/Home.vue"),
+    component: () => import("../views/Home.vue")
   },
   {
     path: "/about-us",
@@ -19,7 +19,7 @@ const routes = [
     props: true,
     meta: { requiresAuth: false },
     component: () =>
-      import(/* webpackChunkName: "about" */ "../views/About.vue"),
+      import(/* webpackChunkName: "about" */ "../views/About.vue")
   },
   {
     path: "/scents",
@@ -33,8 +33,7 @@ const routes = [
         name: "scentList",
         props: true,
         meta: { requiresAuth: false },
-        component: () =>
-          import("../components/scentNoteComponents/default.vue"),
+        component: () => import("../components/scentNoteComponents/default.vue")
       },
       {
         path: ":noteSlug",
@@ -42,16 +41,16 @@ const routes = [
         props: true,
         meta: { requiresAuth: false },
         component: () =>
-          import("../components/scentNoteComponents/noteDetails.vue"),
-      },
-    ],
+          import("../components/scentNoteComponents/noteDetails.vue")
+      }
+    ]
   },
   {
     path: "/blogs",
     name: "Blogs",
     props: true,
     meta: { requiresAuth: false },
-    component: () => import("../views/Blogs.vue"),
+    component: () => import("../views/Blogs.vue")
   },
   {
     path: "/brands",
@@ -66,16 +65,16 @@ const routes = [
         props: true,
         meta: { requiresAuth: false },
         component: () =>
-          import("../components/brandComponents/brandDetails.vue"),
+          import("../components/brandComponents/brandDetails.vue")
       },
       {
         path: "",
         name: "brandList",
         meta: { requiresAuth: false },
         props: true,
-        component: () => import("../components/brandComponents/brandList.vue"),
-      },
-    ],
+        component: () => import("../components/brandComponents/brandList.vue")
+      }
+    ]
   },
   {
     path: "/perfumes",
@@ -88,23 +87,23 @@ const routes = [
         path: "",
         name: "nonePerfume",
         props: true,
-        component: () => import("../components/perfumeComponents/none.vue"),
+        component: () => import("../components/perfumeComponents/none.vue")
       },
       {
         path: ":perfumeSlug",
         name: "perfumeDetail",
         props: true,
         component: () =>
-          import("../components/perfumeComponents/perfumeDetails.vue"),
-      },
-    ],
+          import("../components/perfumeComponents/perfumeDetails.vue")
+      }
+    ]
   },
   {
     path: "/cart",
     name: "Cart",
     props: true,
     meta: { requiresAuth: true },
-    component: () => import("../views/Cart.vue"),
+    component: () => import("../views/Cart.vue")
   },
   {
     path: "/order",
@@ -118,7 +117,7 @@ const routes = [
         name: "Order default",
         props: true,
         meta: { requiresAuth: true },
-        component: () => import("../views/Order.vue"),
+        component: () => import("../views/Order.vue")
       },
       {
         path: "/order/:orderId",
@@ -126,27 +125,27 @@ const routes = [
         props: true,
         meta: { requiresAuth: true },
         component: () =>
-          import("../components/orderComponents/detail-order.vue"),
-      },
-    ],
+          import("../components/orderComponents/detail-order.vue")
+      }
+    ]
   },
   //Back to home
   {
     path: "*",
-    redirect: "/",
-  },
+    redirect: "/"
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 router.beforeEach((to, from, next) => {
   const loggedIn = localStorage.getItem("user");
 
-  if (to.matched.some((record) => record.meta.requiresAuth) && !loggedIn) {
+  if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
     return next("/login");
   }
 

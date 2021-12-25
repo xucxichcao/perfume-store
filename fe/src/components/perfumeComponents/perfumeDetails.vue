@@ -14,7 +14,7 @@
                     :share-options="{
                       url: $route.query.page,
                       quote: perfume[0].name,
-                      hashtag: '#Perfume',
+                      hashtag: '#Perfume'
                     }"
                   >
                     <v-icon color="indigo darken-2" large
@@ -28,7 +28,7 @@
                     :shareOptions="{
                       url: $route.query.page,
                       text: perfume[0].name,
-                      hashtags: ['Perfume', perfume[0].sname],
+                      hashtags: ['Perfume', perfume[0].sname]
                     }"
                     :useNativeBehavior="false"
                     ><v-icon color="blue lighten-2" large>
@@ -42,7 +42,7 @@
                     :use-native-behavior="false"
                     :share-options="{
                       url: $route.query.page,
-                      text: perfume[0].name,
+                      text: perfume[0].name
                     }"
                   >
                     <v-icon color="blue darken-1" large>
@@ -55,7 +55,7 @@
                     :window-features="{}"
                     :use-native-behavior="false"
                     :share-options="{
-                      text: $route.query.page,
+                      text: $route.query.page
                     }"
                   >
                     <v-icon color="teal darken-1" large>
@@ -384,8 +384,8 @@ export default {
   props: {
     perfumeSlug: {
       type: String,
-      required: true,
-    },
+      required: true
+    }
   },
   data() {
     return {
@@ -395,18 +395,18 @@ export default {
         content: "",
         perfume: 0,
         sillage: 0,
-        longevity: 0,
-      },
+        longevity: 0
+      }
     };
   },
   methods: {
     async retrievePerfumes() {
       await NHDataService.getPerfumeByName(this.perfumeSlug)
-        .then((response) => {
+        .then(response => {
           const waiting = response.data.map(this.getDisplayPerfume);
           this.perfume = waiting;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -419,7 +419,7 @@ export default {
         brand: perfume.brand,
         brandname: perfume.brand
           .split("-")
-          .map((word) => {
+          .map(word => {
             return word.slice(0, 1).toUpperCase() + word.slice(1);
           })
           .join(" "),
@@ -435,15 +435,15 @@ export default {
         is_rated: perfume.is_rated,
         image: perfume.image,
         price: perfume.price,
-        sale: perfume.sale,
+        sale: perfume.sale
       };
     },
     async retrieveRate() {
       await NHDataService.getRateByPerfume(this.perfume[0].id)
-        .then((response) => {
+        .then(response => {
           this.rates = response.data;
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
@@ -482,14 +482,14 @@ export default {
     },
     async addToCart() {
       await NHDataService.addToCart(this.perfume[0])
-        .then((response) => {
+        .then(response => {
           console.log(response);
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
       this.$root.$refs.navbar.retrieveCart();
-    },
+    }
   },
   async created() {
     await this.retrievePerfumes();
@@ -498,20 +498,20 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters["user/getAuthen"];
-    },
+    }
   },
   filters: {
-    toCurrency: (value) => {
+    toCurrency: value => {
       if (typeof value !== "number") {
         return value;
       }
       var formatter = new Intl.NumberFormat("vi-VN", {
         style: "currency",
-        currency: "VND",
+        currency: "VND"
       });
       return formatter.format(value);
-    },
-  },
+    }
+  }
 };
 </script>
 
