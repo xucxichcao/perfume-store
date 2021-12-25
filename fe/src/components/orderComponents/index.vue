@@ -78,7 +78,7 @@ export default {
 }
 
 .img {
-  padding: 1em;
+  padding: 0.2em;
   background-color: #009688;
   display: flex;
   justify-content: space-between;
@@ -116,7 +116,7 @@ p {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding: 1em;
+  padding: 0.2em;
   background-color: white;
   border-radius: 5px;
 }
@@ -126,7 +126,7 @@ p {
   justify-content: flex-end;
   align-items: center;
   background-color: white !important;
-  padding: 1em;
+  padding: 0.2em;
 }
 
 a {
